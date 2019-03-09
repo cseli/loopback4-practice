@@ -16,32 +16,34 @@ import {
   del,
   requestBody,
 } from '@loopback/rest';
-import {Person} from '../models';
-import {PersonRepository} from '../repositories';
+import { Person } from '../models';
+import { PersonRepository } from '../repositories';
+import { v4 as uuid } from 'uuid';
 
 export class PersonController {
   constructor(
     @repository(PersonRepository)
-    public personRepository : PersonRepository,
-  ) {}
+    public personRepository: PersonRepository,
+  ) { }
 
-  @post('/people', {
+  @post('/person', {
     responses: {
       '200': {
         description: 'Person model instance',
-        content: {'application/json': {schema: {'x-ts-type': Person}}},
+        content: { 'application/json': { schema: { 'x-ts-type': Person } } },
       },
     },
   })
   async create(@requestBody() person: Person): Promise<Person> {
+    person.id = uuid();
     return await this.personRepository.create(person);
   }
 
-  @get('/people/count', {
+  @get('/person/count', {
     responses: {
       '200': {
         description: 'Person model count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -51,13 +53,13 @@ export class PersonController {
     return await this.personRepository.count(where);
   }
 
-  @get('/people', {
+  @get('/person', {
     responses: {
       '200': {
         description: 'Array of Person model instances',
         content: {
           'application/json': {
-            schema: {type: 'array', items: {'x-ts-type': Person}},
+            schema: { type: 'array', items: { 'x-ts-type': Person } },
           },
         },
       },
@@ -69,11 +71,11 @@ export class PersonController {
     return await this.personRepository.find(filter);
   }
 
-  @patch('/people', {
+  @patch('/person', {
     responses: {
       '200': {
         description: 'Person PATCH success count',
-        content: {'application/json': {schema: CountSchema}},
+        content: { 'application/json': { schema: CountSchema } },
       },
     },
   })
@@ -84,19 +86,19 @@ export class PersonController {
     return await this.personRepository.updateAll(person, where);
   }
 
-  @get('/people/{id}', {
+  @get('/person/{id}', {
     responses: {
       '200': {
         description: 'Person model instance',
-        content: {'application/json': {schema: {'x-ts-type': Person}}},
+        content: { 'application/json': { schema: { 'x-ts-type': Person } } },
       },
     },
   })
-  async findById(@param.path.number('id') id: number): Promise<Person> {
+  async findById(@param.path.string('id') id: string): Promise<Person> {
     return await this.personRepository.findById(id);
   }
 
-  @patch('/people/{id}', {
+  @patch('/person/{id}', {
     responses: {
       '204': {
         description: 'Person PATCH success',
@@ -104,13 +106,13 @@ export class PersonController {
     },
   })
   async updateById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @requestBody() person: Person,
   ): Promise<void> {
     await this.personRepository.updateById(id, person);
   }
 
-  @put('/people/{id}', {
+  @put('/person/{id}', {
     responses: {
       '204': {
         description: 'Person PUT success',
@@ -118,20 +120,20 @@ export class PersonController {
     },
   })
   async replaceById(
-    @param.path.number('id') id: number,
+    @param.path.string('id') id: string,
     @requestBody() person: Person,
   ): Promise<void> {
     await this.personRepository.replaceById(id, person);
   }
 
-  @del('/people/{id}', {
+  @del('/person/{id}', {
     responses: {
       '204': {
         description: 'Person DELETE success',
       },
     },
   })
-  async deleteById(@param.path.number('id') id: number): Promise<void> {
+  async deleteById(@param.path.string('id') id: string): Promise<void> {
     await this.personRepository.deleteById(id);
   }
 }
