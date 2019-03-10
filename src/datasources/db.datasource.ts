@@ -5,11 +5,18 @@ import * as configMongo from './db.mongo.datasource.json';
 
 export class DbDataSource extends juggler.DataSource {
   static dataSourceName = 'db';
+  dbProfile: String;
 
   constructor(
     @inject('datasources.config.db', { optional: true })
-    dsConfig: object = configMongo,
+    dsMemConfig: object = configMemory,
+    dsMongoConfig: object = configMongo,
   ) {
-    super(dsConfig);
+    if (process.env.DB_PROFILE === 'mongo') {
+      console.info('***Use db: mongo');
+      super(dsMongoConfig);
+    } else {
+      super(dsMemConfig);
+    }
   }
 }
