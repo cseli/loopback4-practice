@@ -1,5 +1,5 @@
-import { inject } from '@loopback/core';
-import { juggler } from '@loopback/repository';
+import {inject} from '@loopback/core';
+import {juggler} from '@loopback/repository';
 import * as configMemory from './db.memory.datasource.json';
 import * as configMongo from './db.mongo.datasource.json';
 
@@ -8,7 +8,7 @@ export class DbDataSource extends juggler.DataSource {
   dbProfile: String;
 
   constructor(
-    @inject('datasources.config.db', { optional: true })
+    @inject('datasources.config.db', {optional: true})
     dsMemConfig: object = configMemory,
     dsMongoConfig: object = configMongo,
   ) {

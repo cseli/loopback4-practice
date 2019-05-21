@@ -7,9 +7,7 @@ export class PersonRepository extends DefaultCrudRepository<
   Person,
   typeof Person.prototype.id
 > {
-  constructor(
-    @inject('datasources.db') dataSource: DbDataSource,
-  ) {
+  constructor(@inject('datasources.db') dataSource: DbDataSource) {
     super(Person, dataSource);
   }
 }

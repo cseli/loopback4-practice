@@ -16,21 +16,21 @@ import {
   del,
   requestBody,
 } from '@loopback/rest';
-import { Person } from '../models';
-import { PersonRepository } from '../repositories';
-import { v4 as uuid } from 'uuid';
+import {Person} from '../models';
+import {PersonRepository} from '../repositories';
+import {v4 as uuid} from 'uuid';
 
 export class PersonController {
   constructor(
     @repository(PersonRepository)
     public personRepository: PersonRepository,
-  ) { }
+  ) {}
 
   @post('/person', {
     responses: {
       '200': {
         description: 'Person model instance',
-        content: { 'application/json': { schema: { 'x-ts-type': Person } } },
+        content: {'application/json': {schema: {'x-ts-type': Person}}},
       },
     },
   })
@@ -43,7 +43,7 @@ export class PersonController {
     responses: {
       '200': {
         description: 'Person model count',
-        content: { 'application/json': { schema: CountSchema } },
+        content: {'application/json': {schema: CountSchema}},
       },
     },
   })
@@ -59,7 +59,7 @@ export class PersonController {
         description: 'Array of Person model instances',
         content: {
           'application/json': {
-            schema: { type: 'array', items: { 'x-ts-type': Person } },
+            schema: {type: 'array', items: {'x-ts-type': Person}},
           },
         },
       },
@@ -75,7 +75,7 @@ export class PersonController {
     responses: {
       '200': {
         description: 'Person PATCH success count',
-        content: { 'application/json': { schema: CountSchema } },
+        content: {'application/json': {schema: CountSchema}},
       },
     },
   })
@@ -90,7 +90,7 @@ export class PersonController {
     responses: {
       '200': {
         description: 'Person model instance',
-        content: { 'application/json': { schema: { 'x-ts-type': Person } } },
+        content: {'application/json': {schema: {'x-ts-type': Person}}},
       },
     },
   })

@@ -1,7 +1,7 @@
-import { GettingStartedApplication } from './application';
-import { ApplicationConfig } from '@loopback/core';
+import {GettingStartedApplication} from './application';
+import {ApplicationConfig} from '@loopback/core';
 
-export { GettingStartedApplication };
+export {GettingStartedApplication};
 
 export async function main(options: ApplicationConfig = {}) {
   options.rest.port = 9090;
